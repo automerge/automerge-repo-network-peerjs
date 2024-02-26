@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@automerge/automerge-repo": "1.1.1",
+    "eventemitter3": "5.0.1",
     "peerjs": "1.5.2"
   },
   "devDependencies": {
