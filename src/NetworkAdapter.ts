@@ -10,7 +10,7 @@ import type * as t from "./t.js";
  *    https://github.com/automerge/automerge-repo/blob/main/packages/automerge-repo-network-messagechannel/src/index.ts
  *
  */
-export class WebrtcNetworkAdapter extends NetworkAdapter {
+export class PeerjsNetworkAdapter extends NetworkAdapter {
   #conn: t.DataConnection;
   #isReady = false;
   #disconnected = new EventEmitter<"disconnected">();

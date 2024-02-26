@@ -11,6 +11,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 #### Security
 
 
+## [Unreleased] - YYYY-MM-DD
+#### Added
+#### Changed
+- Rename `WebrtcNetworkAdapter` to `PeerjsNetworkAdapter`
+#### Deprecated
+#### Removed
+#### Fixed
+#### Security
+
+
 
 ## [0.0.1] - 2024-02-27
 #### Added
