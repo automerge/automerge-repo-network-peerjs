@@ -12,4 +12,5 @@ A network adapter for WebRTC, based on the point-to-point [MessageChannelNetwork
 yarn add automerge-repo-network-peerjs
 ```
 
-## Licence: MIT
+## Licence
+MIT
