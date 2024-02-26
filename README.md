@@ -7,3 +7,10 @@ A network adapter for [automerge-repo](https://github.com/automerge/automerge-re
 
 **PLEASE NOTE:** This is not an official part of the automerge-repo project, rather a community contribution that includes a dependency on the [peerjs](https://github.com/peers/peerjs) library.
    
+## Setup
+
+```
+yarn add automerge-repo-network-peerjs
+```
+
+
