@@ -1,4 +1,5 @@
 import { NetworkAdapter } from "@automerge/automerge-repo";
+import { EventEmitter } from "eventemitter3";
 import type * as t from "./t.js";
 
 /**
@@ -12,19 +13,12 @@ import type * as t from "./t.js";
 export class WebrtcNetworkAdapter extends NetworkAdapter {
   #conn: t.DataConnection;
   #isReady = false;
-  #disconnected$ = rx.subject<void>();
-  #message$ = rx.subject<t.WebrtcMessageAlert>();
-
-  readonly message$: t.Observable<t.WebrtcMessageAlert>;
+  #disconnected = new EventEmitter<"disconnected">();
 
   constructor(conn: t.DataConnection) {
     if (!conn) throw new Error(`A peerjs data-connection is required`);
     super();
     this.#conn = conn;
-    this.message$ = this.#message$.pipe(
-      rx.takeUntil(this.#disconnected$),
-      rx.filter(() => this.#isReady),
-    );
   }
 
   connect(peerId: t.PeerId) {
@@ -62,13 +56,13 @@ export class WebrtcNetworkAdapter extends NetworkAdapter {
       let payload = msg as t.Message;
       if ("data" in msg) payload = { ...payload, data: toUint8Array(msg.data!) };
       this.emit("message", payload);
-      this.#alert("incoming", msg);
     };
 
     conn.on("open", handleOpen);
     conn.on("close", handleClose);
     conn.on("data", handleData);
-    this.#disconnected$.subscribe(() => {
+
+    this.#disconnected.on("disconnected", () => {
       this.#isReady = false;
       conn.off("open", handleOpen);
       conn.off("close", handleClose);
@@ -84,7 +78,7 @@ export class WebrtcNetworkAdapter extends NetworkAdapter {
   }
 
   disconnect() {
-    this.#disconnected$.next();
+    this.#disconnected.emit("disconnected");
   }
 
   send(message: t.RepoMessage) {
@@ -99,11 +93,6 @@ export class WebrtcNetworkAdapter extends NetworkAdapter {
   #transmit(message: t.WebrtcMessage) {
     if (!this.#conn) throw new Error("Connection not ready");
     this.#conn.send(message);
-    this.#alert("outgoing", message);
-  }
-
-  #alert(direction: t.IODirection, message: t.WebrtcMessage) {
-    this.#message$.next({ direction, message });
   }
 
   #setAsReady() {

@@ -1,5 +1,3 @@
-import { expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
-test("stub", () => {
-  expect(123).toBe(123);
-});
+describe("NetworkAdapter", () => {});
