@@ -12,17 +12,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-## [0.0.1] - YYYY-MM-DD
+## [0.0.1] - 2024-02-27
 #### Added
 - Setup initial project structure.
 - Copied over from [source](https://github.com/cellplatform/platform-0.2.0/tree/main/code/ext/ext.lib.automerge.webrtc/src/Store.Network.WebrtcAdapter) monorepo.
 - Setup CI/CD.
-#### Changed
-#### Deprecated
-#### Removed
-#### Fixed
-#### Security
-
-
-
-
+- Initial publish to NPM.

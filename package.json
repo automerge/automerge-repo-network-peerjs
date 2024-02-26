@@ -1,6 +1,6 @@
 {
   "name": "automerge-repo-network-peerjs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Network adapter for automerge-repo using peerjs",
   "author": "phil Cockfield",
   "license": "MIT",
