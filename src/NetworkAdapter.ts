@@ -1,6 +1,11 @@
 import { NetworkAdapter } from "@automerge/automerge-repo";
 import { EventEmitter } from "eventemitter3";
-import type * as t from "./t.js";
+import type * as t from "./types.js";
+
+type EventTypes = {
+  disconnected: {};
+  data: t.NetworkMessageAlert;
+};
 
 /**
  * An Automerge repo network-adapter for WebRTC (P2P)
@@ -11,9 +16,9 @@ import type * as t from "./t.js";
  *
  */
 export class PeerjsNetworkAdapter extends NetworkAdapter {
-  #conn: t.DataConnection;
   #isReady = false;
-  #disconnected = new EventEmitter<"disconnected">();
+  #conn: t.DataConnection;
+  #events = new EventEmitter<keyof EventTypes>();
 
   constructor(conn: t.DataConnection) {
     if (!conn) throw new Error(`A peerjs data-connection is required`);
@@ -28,7 +33,7 @@ export class PeerjsNetworkAdapter extends NetworkAdapter {
     const handleOpen = () => this.#transmit({ type: "arrive", senderId, peerMetadata: {} });
     const handleClose = () => this.emit("close");
     const handleData = (e: any) => {
-      const msg = e as t.WebrtcMessage;
+      const msg = e as t.NetworkMessage;
 
       /**
        * Arrive.
@@ -56,13 +61,14 @@ export class PeerjsNetworkAdapter extends NetworkAdapter {
       let payload = msg as t.Message;
       if ("data" in msg) payload = { ...payload, data: toUint8Array(msg.data!) };
       this.emit("message", payload);
+      this.#alert("incoming", msg);
     };
 
     conn.on("open", handleOpen);
     conn.on("close", handleClose);
     conn.on("data", handleData);
 
-    this.#disconnected.on("disconnected", () => {
+    this.#events.on("disconnected", () => {
       this.#isReady = false;
       conn.off("open", handleOpen);
       conn.off("close", handleClose);
@@ -78,7 +84,12 @@ export class PeerjsNetworkAdapter extends NetworkAdapter {
   }
 
   disconnect() {
-    this.#disconnected.emit("disconnected");
+    this.#events.emit("disconnected");
+  }
+
+  onData(fn: (e: t.NetworkMessageAlert) => void) {
+    this.#events.on("data", fn);
+    return () => this.#events.off("data", fn);
   }
 
   send(message: t.RepoMessage) {
@@ -90,9 +101,14 @@ export class PeerjsNetworkAdapter extends NetworkAdapter {
     }
   }
 
-  #transmit(message: t.WebrtcMessage) {
+  #transmit(message: t.NetworkMessage) {
     if (!this.#conn) throw new Error("Connection not ready");
     this.#conn.send(message);
+    this.#alert("outgoing", message);
+  }
+
+  #alert(direction: t.IODirection, message: t.NetworkMessage) {
+    this.#events.emit("data", { direction, message });
   }
 
   #setAsReady() {
