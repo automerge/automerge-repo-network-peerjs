@@ -11,14 +11,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 #### Security
 
 
-## [Unreleased] - YYYY-MM-DD
+## [0.0.12] - 2024-02-27
 #### Added
+- onData callback method (replacing the rxjs observable pattern from original implementation).
+- Export types from package.
 #### Changed
 - Rename `WebrtcNetworkAdapter` to `PeerjsNetworkAdapter`
-#### Deprecated
-#### Removed
-#### Fixed
-#### Security
 
 
 
