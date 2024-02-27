@@ -15,12 +15,13 @@ export type { DataConnection } from "peerjs";
  *    MessageChannelNetworkAdapter
  *    https://github.com/automerge/automerge-repo/blob/main/packages/automerge-repo-network-messagechannel/src/index.ts
  */
-export type IODirection = "incoming" | "outgoing";
+export type { PeerjsNetworkAdapter } from "./NetworkAdapter.js";
 
-export type WebrtcMessage = ArriveMessage | WelcomeMessage | Message;
-export type WebrtcMessageAlert = {
+export type IODirection = "incoming" | "outgoing";
+export type NetworkMessage = ArriveMessage | WelcomeMessage | Message;
+export type NetworkMessageAlert = {
   direction: IODirection;
-  message: WebrtcMessage;
+  message: NetworkMessage;
 };
 
 /**
