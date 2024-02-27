@@ -1,8 +1,22 @@
 /**
  * @automerge
  */
-import type { Message, PeerId, RepoMessage, StorageId } from "@automerge/automerge-repo";
-export { Message, PeerId, RepoMessage };
+import type {
+  Message,
+  NetworkAdapterEvents,
+  NetworkAdapterInterface,
+  PeerId,
+  RepoMessage,
+  StorageId,
+} from "@automerge/automerge-repo";
+export type {
+  Message,
+  NetworkAdapterEvents,
+  NetworkAdapterInterface,
+  PeerId,
+  RepoMessage,
+  StorageId,
+};
 
 /**
  * @peerjs
@@ -22,6 +36,7 @@ export type NetworkMessage = ArriveMessage | WelcomeMessage | Message;
 export type NetworkMessageAlert = {
   direction: IODirection;
   message: NetworkMessage;
+  bytes: number;
 };
 
 /**

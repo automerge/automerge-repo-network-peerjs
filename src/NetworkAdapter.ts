@@ -1,11 +1,7 @@
-import { NetworkAdapter } from "@automerge/automerge-repo";
 import { EventEmitter } from "eventemitter3";
 import type * as t from "./types.js";
 
-type EventTypes = {
-  disconnected: {};
-  data: t.NetworkMessageAlert;
-};
+type EventTypes = { data: t.NetworkMessageAlert };
 
 /**
  * An Automerge repo network-adapter for WebRTC (P2P)
@@ -15,10 +11,16 @@ type EventTypes = {
  *    https://github.com/automerge/automerge-repo/blob/main/packages/automerge-repo-network-messagechannel/src/index.ts
  *
  */
-export class PeerjsNetworkAdapter extends NetworkAdapter {
+export class PeerjsNetworkAdapter
+  extends EventEmitter<t.NetworkAdapterEvents>
+  implements t.NetworkAdapterInterface
+{
+  peerId?: t.PeerId;
+  peerMetadata?: t.PeerMetadata;
+
   #isReady = false;
   #conn: t.DataConnection;
-  #events = new EventEmitter<keyof EventTypes>();
+  #events = new EventEmitter<EventTypes>();
 
   constructor(conn: t.DataConnection) {
     if (!conn) throw new Error(`A peerjs data-connection is required`);
@@ -26,11 +28,12 @@ export class PeerjsNetworkAdapter extends NetworkAdapter {
     this.#conn = conn;
   }
 
-  connect(peerId: t.PeerId) {
+  connect(peerId: t.PeerId, meta?: t.PeerMetadata) {
     const senderId = (this.peerId = peerId);
     const conn = this.#conn;
+    const peerMetadata = meta ?? {};
 
-    const handleOpen = () => this.#transmit({ type: "arrive", senderId, peerMetadata: {} });
+    const handleOpen = () => this.#transmit({ type: "arrive", senderId, peerMetadata });
     const handleClose = () => this.emit("close");
     const handleData = (e: any) => {
       const msg = e as t.NetworkMessage;
@@ -68,7 +71,7 @@ export class PeerjsNetworkAdapter extends NetworkAdapter {
     conn.on("close", handleClose);
     conn.on("data", handleData);
 
-    this.#events.on("disconnected", () => {
+    this.on("peer-disconnected", () => {
       this.#isReady = false;
       conn.off("open", handleOpen);
       conn.off("close", handleClose);
@@ -84,7 +87,8 @@ export class PeerjsNetworkAdapter extends NetworkAdapter {
   }
 
   disconnect() {
-    this.#events.emit("disconnected");
+    const peerId = this.peerId;
+    if (peerId) this.emit("peer-disconnected", { peerId });
   }
 
   onData(fn: (e: t.NetworkMessageAlert) => void) {
@@ -108,7 +112,9 @@ export class PeerjsNetworkAdapter extends NetworkAdapter {
   }
 
   #alert(direction: t.IODirection, message: t.NetworkMessage) {
-    this.#events.emit("data", { direction, message });
+    const bytes = "data" in message ? message.data?.byteLength ?? 0 : 0;
+    const payload: t.NetworkMessageAlert = { direction, message, bytes };
+    this.#events.emit("data", payload);
   }
 
   #setAsReady() {
