@@ -37,7 +37,7 @@ to keep track of directional data being sent and received, for example:
 ```ts
 function monitor(adapter: PeerjsNetworkAdapter, dispose$?: Observable) {
   const detach = adapter.onData((e) => console.log(`⚡️ ${e.direction}: ${e.bytes} bytes`));
-  dispose$?.subscribe((detach);
+  dispose$?.subscribe(detach);
 }
 
 ```
