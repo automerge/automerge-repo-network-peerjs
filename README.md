@@ -42,11 +42,8 @@ function monitor(adapter: PeerjsNetworkAdapter, dispose$?: Observable<any>) {
 
 ```
 
-<p>&nbsp;</p>
 
 
-## Licence
-MIT
 
 <p>&nbsp;</p>
 
