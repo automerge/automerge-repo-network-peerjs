@@ -35,7 +35,7 @@ Along with the usual `NetworkAdapterInterface` events an additional `onData` eve
 to keep track of directional data being sent and received, for example:
 
 ```ts
-function monitor(adapter: PeerjsNetworkAdapter, dispose$?: Observable<any>) {
+function monitor(adapter: PeerjsNetworkAdapter, dispose$?: Observable) {
   const detach = adapter.onData((e) => console.log(`⚡️ ${e.direction}: ${e.bytes} bytes`));
   dispose$?.subscribe(() => detach());
 }
