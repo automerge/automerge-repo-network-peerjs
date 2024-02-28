@@ -27,7 +27,7 @@ const conn = peer.connect("another-peers-id");
 Then use that to pass into the constructor of the automerge network adapter:
 
 ```ts
-import { PeerjsNetworkAdapter } from 'automerge-repo-network-peerjs';
+import { PeerjsNetworkAdapter } from "automerge-repo-network-peerjs";
 const adapter = new PeerjsNetworkAdapter(conn);
 ```
 
