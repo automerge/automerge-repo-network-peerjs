@@ -20,6 +20,7 @@ Establish a data connection as per [peerjs](https://github.com/peers/peerjs#data
 
 ```ts
 import { Peer } from "peerjs";
+const peer = new Peer("pick-an-id");
 const conn = peer.connect("another-peers-id");
 ```
 
@@ -30,7 +31,7 @@ import { PeerjsNetworkAdapter } from 'automerge-repo-network-peerjs';
 const adapter = new PeerjsNetworkAdapter(conn);
 ```
 
-Along with the usual `NetworkAdapterInterface` events an additional `onData` event is available to 
+Along with the usual `NetworkAdapterInterface` events an additional `onData` event is available
 to keep track of directional data being sent and received, for example:
 
 ```ts
