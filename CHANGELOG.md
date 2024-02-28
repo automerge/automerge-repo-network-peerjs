@@ -11,6 +11,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 #### Security
 
 
+## [1.1.1] - 2024-02-28
+#### Added
+- onData callback method (replacing the rxjs observable pattern from original implementation).
+- Export types from package.
+- Converted adapter to implement [NetworkAdapterInterface] as [NetworkAdapter] base abstract class deprecated.
+#### Changed
+- Rename `WebrtcNetworkAdapter` to `PeerjsNetworkAdapter`
+- Version set to `1.1.1` to match main `automerge-repo` version.
+
+
 
 ## [0.0.1] - 2024-02-27
 #### Added
