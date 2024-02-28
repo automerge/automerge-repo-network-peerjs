@@ -4,12 +4,15 @@
 A network adapter for WebRTC, based on the point-to-point [MessageChannelNetworkAdapter](https://github.com/automerge/automerge-repo/blob/main/packages/automerge-repo-network-messagechannel/src/index.ts).
 
 
-**Please Note:** This is not an official part of the [automerge-repo](https://github.com/automerge/automerge-repo) project, rather a community contribution that includes a dependency on the [peerjs](https://github.com/peers/peerjs) library.
-   
+<p>&nbsp;</p>
+
+
 ## Setup
 ```
 yarn add automerge-repo-network-peerjs
 ```
+
+<p>&nbsp;</p>
 
 ## Usage
 
@@ -38,6 +41,14 @@ function monitor(adapter: PeerjsNetworkAdapter, dispose$?: Observable<any>) {
 
 ```
 
+<p>&nbsp;</p>
+
 
 ## Licence
 MIT
+
+<p>&nbsp;</p>
+
+---
+**Please Note:**  
+This is not an official part of the [automerge-repo](https://github.com/automerge/automerge-repo) project, rather a community contribution that includes a dependency on the [peerjs](https://github.com/peers/peerjs) library.
