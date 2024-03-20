@@ -10,6 +10,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 #### Fixed
 #### Security
 
+## [1.1.4] - 2024-03-20
+#### Changed
+- Update refs and bump version to 1.1.4 to match main `automerge-repo`.
+
+
 ## [1.1.2] - 2024-03-13
 #### Changed
 - Update refs and bump version to 1.1.2 to match main `automerge-repo`.
