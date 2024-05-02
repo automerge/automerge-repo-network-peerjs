@@ -11,10 +11,10 @@
     "build": "tsc",
     "test": "vitest"
   },
-  "dependencies": {
-    "@automerge/automerge-repo": "1.1.9",
-    "eventemitter3": "5.0.1",
-    "peerjs": "1.5.2"
+  "peerDependencies": {
+    "@automerge/automerge-repo": ">=1.1.9",
+    "eventemitter3": ">=5.0.1",
+    "peerjs": ">=1.5.2"
   },
   "devDependencies": {
     "typescript": "5.4.5",
