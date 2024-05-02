@@ -20,6 +20,9 @@
     "typescript": "5.4.5",
     "vitest": "1.5.3"
   },
+  "resolutions": {
+    "vite": ">=5.2.10"
+  },
   "publishConfig": {
     "access": "public"
   }
