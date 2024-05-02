@@ -12,13 +12,13 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@automerge/automerge-repo": "1.1.4",
+    "@automerge/automerge-repo": "1.1.9",
     "eventemitter3": "5.0.1",
     "peerjs": "1.5.2"
   },
   "devDependencies": {
-    "typescript": "5.4.2",
-    "vitest": "1.4.0"
+    "typescript": "5.4.5",
+    "vitest": "1.5.3"
   },
   "publishConfig": {
     "access": "public"
