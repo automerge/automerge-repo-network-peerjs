@@ -10,6 +10,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 #### Fixed
 #### Security
 
+## [1.1.13] - 2024-05-18
+#### Changed
+- Updated refs (peerjs)
+
+
 
 ## [1.1.12] - 2024-05-13
 #### Changed
