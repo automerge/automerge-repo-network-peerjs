@@ -1,6 +1,6 @@
 {
   "name": "automerge-repo-network-peerjs",
-  "version": "1.1.13",
+  "version": "1.2.0",
   "description": "Network adapter for automerge-repo using peerjs",
   "author": "phil Cockfield",
   "license": "MIT",
@@ -12,16 +12,16 @@
     "test": "vitest"
   },
   "peerDependencies": {
-    "@automerge/automerge-repo": ">=1.1.12",
+    "@automerge/automerge-repo": ">=1.2.0",
     "eventemitter3": ">=5.0.1",
     "peerjs": ">=1.5.4"
   },
   "devDependencies": {
-    "@automerge/automerge-repo": ">=1.1.12",
+    "@automerge/automerge-repo": ">=1.2.0",
     "eventemitter3": ">=5.0.1",
     "peerjs": ">=1.5.4",
-    "typescript": "5.4.5",
-    "vitest": "1.6.0"
+    "typescript": "5.5.3",
+    "vitest": "2.0.1"
   },
   "publishConfig": {
     "access": "public"
