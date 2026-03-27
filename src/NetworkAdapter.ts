@@ -1,5 +1,6 @@
 import { EventEmitter } from "eventemitter3";
-import type * as t from "./types.js";
+
+import type * as t from "./types.ts";
 
 type EventTypes = { data: t.NetworkMessageAlert };
 
@@ -87,6 +88,11 @@ export class PeerjsNetworkAdapter
     conn.on("close", handleClose);
     conn.on("data", handleData);
 
+    // FIX: If the connection is already open, trigger handleOpen manually
+    if (conn.open) {
+      handleOpen();
+    }
+
     this.on("peer-disconnected", () => {
       this.#ready = false;
       conn.off("open", handleOpen);
@@ -94,12 +100,7 @@ export class PeerjsNetworkAdapter
       conn.off("data", handleData);
     });
 
-    /**
-     * Mark this channel as ready after 100ms, at this point there
-     * must be something weird going on at the other end to cause us
-     * to receive no response.
-     */
-    setTimeout(() => this.#forceReady(), 100);
+    setTimeout(() => this.#ready = true, 100);
   }
 
   disconnect() {
